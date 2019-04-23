@@ -1,0 +1,27 @@
+version: "3.1"
+# https://docs.docker.com/compose/compose-file/
+
+services:
+  blueocean:
+    container_name: jenkins
+    user: root
+    ports:
+      - 8080:8080
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $HOME:/home
+    image: jenkinsci/blueocean
+  sonarqube:
+    container_name: sonarqube
+    ports:
+      - 9000:9000
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+    image: sonarqube
+
+volumes:
+  jenkins-data:
+  sonarqube_conf:
+  sonarqube_data:
