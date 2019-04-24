@@ -8,7 +8,6 @@ public class App {
     private final String message = "Hello World!";
 
     public App() {
-        throw new RuntimeException("Problem!");
     }
 
     public static void main(String[] args) {
