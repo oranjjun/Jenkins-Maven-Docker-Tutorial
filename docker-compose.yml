@@ -12,6 +12,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - $HOME:/home
     image: jenkinsci/blueocean
+    environment:
+      - JAVA_OPTS=-Duser.timezone=Asia/Shanghai
   sonarqube:
     container_name: sonarqube
     ports:
