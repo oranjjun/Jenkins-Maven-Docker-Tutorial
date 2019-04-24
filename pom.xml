@@ -1,18 +1,31 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.mycompany.app</groupId>
   <artifactId>my-app</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <name>my-app</name>
   <url>http://maven.apache.org</url>
+
+  <scm>
+    <connection>scm:git:https://stash.backbase.com/scm/~jun/simple-java-maven.git</connection>
+    <url>https://stash.backbase.com/users/jun/repos/simple-java-maven/browse</url>
+    <developerConnection>scm:git:https://stash.backbase.com/scm/~jun/simple-java-maven.git
+    </developerConnection>
+    <tag>my-app-1.0</tag>
+  </scm>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.scm</groupId>
+      <artifactId>maven-scm-provider-gitexe</artifactId>
+      <version>1.9.5</version>
     </dependency>
   </dependencies>
   <build>
@@ -32,6 +45,63 @@
           </archive>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.8.2</version>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.5.1</version>
+        <executions>
+          <execution>
+            <id>default-deploy</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>deploy</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <serverId>nexus</serverId>
+          <nexusUrl>http://localhost:8081/nexus/</nexusUrl>
+          <skipStaging>true</skipStaging>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.3</version>
+        <configuration>
+          <checkModificationExcludes>
+            <checkModificationExclude>pom.xml</checkModificationExclude>
+          </checkModificationExcludes>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.scm</groupId>
+            <artifactId>maven-scm-provider-gitexe</artifactId>
+            <version>1.9.5</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
     </plugins>
   </build>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>nexus-snapshots</id>
+      <url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
+    <repository>
+      <id>nexus-releases</id>
+      <url>http://localhost:8081/nexus/content/repositories/releases/</url>
+    </repository>
+  </distributionManagement>
 </project>
