@@ -39,6 +39,13 @@ pipeline {
             }
         }
         stage('Deliver') {
+            when {
+                expression {
+                    GIT_BRANCH = 'origin/' + sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+                    echo GIT_BRANCH
+                    return GIT_BRANCH == 'origin/master'
+                }
+            }
             steps {
                 sh './jenkins/scripts/deliver.sh'
             }
