@@ -3,7 +3,7 @@
   <groupId>com.mycompany.app</groupId>
   <artifactId>my-app</artifactId>
   <packaging>jar</packaging>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1</version>
   <name>my-app</name>
   <url>http://maven.apache.org</url>
 
@@ -12,7 +12,7 @@
     <url>https://stash.backbase.com/users/jun/repos/simple-java-maven/browse</url>
     <developerConnection>scm:git:https://stash.backbase.com/scm/~jun/simple-java-maven.git
     </developerConnection>
-    <tag>HEAD</tag>
+    <tag>my-app-1.1</tag>
   </scm>
 
   <dependencies>
@@ -21,11 +21,6 @@
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven.scm</groupId>
-      <artifactId>maven-scm-provider-gitexe</artifactId>
-      <version>1.9.5</version>
     </dependency>
   </dependencies>
   <build>
