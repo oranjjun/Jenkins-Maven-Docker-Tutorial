@@ -9,6 +9,12 @@ pipeline {
     options {
         skipStagesAfterUnstable()
     }
+    parameters {
+        string (
+            defaultValue: '*',
+            description: '',
+            name : 'BRANCH_PATTERN')
+    }
     stages {
         stage('Build') { 
             steps {
@@ -41,9 +47,8 @@ pipeline {
         stage('Deliver') {
             when {
                 expression {
-                    GIT_BRANCH = 'origin/' + sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-                    echo GIT_BRANCH
-                    return GIT_BRANCH == 'origin/master'
+                    echo BRANCH_PATTERN
+                    return BRANCH_PATTERN == 'master'
                 }
             }
             steps {
