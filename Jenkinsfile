@@ -12,6 +12,7 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
+                echo 'Branch is ' + env.BRANCH_NAME
                 sh 'mvn -B -DskipTests clean package' 
             }
         }
