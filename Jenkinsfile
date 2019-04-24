@@ -9,12 +9,6 @@ pipeline {
     options {
         skipStagesAfterUnstable()
     }
-    parameters {
-        string (
-            defaultValue: '*',
-            description: '',
-            name : 'BRANCH_PATTERN')
-    }
     stages {
         stage('Build') { 
             steps {
@@ -45,12 +39,6 @@ pipeline {
             }
         }
         stage('Deliver') {
-            when {
-                expression {
-                    echo BRANCH_PATTERN
-                    return BRANCH_PATTERN == 'master'
-                }
-            }
             steps {
                 sh './jenkins/scripts/deliver.sh'
             }
