@@ -2,8 +2,8 @@
 pipeline {
     agent {
         docker {
-            image 'maven:3-alpine' 
-            args '-v $HOME/.m2:/root/.m2' 
+            image 'maven:3-alpine'
+            args '-v /home/.m2:/root/.m2'
         }
     }
     options {
@@ -13,9 +13,9 @@ pipeline {
         CI = 'true'
     }
     stages {
-        stage('Build') { 
+        stage('Build') {
             steps {
-                sh 'mvn -B -DskipTests clean package' 
+                sh 'mvn -B -DskipTests clean package'
             }
         }
         stage('Test') {
@@ -50,16 +50,16 @@ pipeline {
             }
             steps {
                 sh './jenkins/scripts/deliver.sh'
-                sh 'mvn clean deploy -Dmaven.test.skip=true -Dnexus.host=' + env.NEXUS_HOST 
+                sh 'mvn clean deploy -Dmaven.test.skip=true -Dnexus.host=' + env.NEXUS_HOST
             }
         }
     }
     post {
         always {
             emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\nMore info at: ${env.BUILD_URL}",
-                recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
-                subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
-            
+                    recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+                    subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
+
         }
     }
 }
