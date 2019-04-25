@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Home is ' + env.HOME
+                sh 'cat /home/.m2/setting.xml'
                 sh 'mvn -B -DskipTests clean package'
             }
         }
