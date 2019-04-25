@@ -14,6 +14,7 @@ services:
     image: jenkinsci/blueocean
     environment:
       - JAVA_OPTS=-Duser.timezone=Asia/Shanghai
+
   sonarqube:
     container_name: sonarqube
     ports:
@@ -22,8 +23,17 @@ services:
       - sonarqube_conf:/opt/sonarqube/conf
       - sonarqube_data:/opt/sonarqube/data
     image: sonarqube
+  
+  nexus:
+    ports:
+      - 8081:8081
+    container_name: nexus
+    volumes:
+      - nexus-data:/nexus-data
+    image: sonatype/nexus
 
 volumes:
   jenkins-data:
   sonarqube_conf:
   sonarqube_data:
+  nexus-data:
