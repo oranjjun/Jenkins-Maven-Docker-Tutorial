@@ -50,6 +50,7 @@ pipeline {
             }
             steps {
                 sh './jenkins/scripts/deliver.sh'
+                sh 'mvn clean deploy -Dmaven.test.skip=true -Dnexus.host=' + env.NEXUS_HOST 
             }
         }
     }
