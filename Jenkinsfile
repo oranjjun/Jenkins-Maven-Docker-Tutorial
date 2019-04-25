@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh echo 'Home is ' + env.HOME
+                echo 'Home is ' + env.HOME
                 sh 'mvn -B -DskipTests clean package'
             }
         }
