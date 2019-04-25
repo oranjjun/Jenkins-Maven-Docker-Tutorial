@@ -3,8 +3,7 @@ pipeline {
     agent {
         docker {
             image 'maven:3-alpine'
-            args '-v /home/.m2/settings.xml:/root/.m2/settings.xml'
-            args '-v /home/.m2/settings-security.xml:/root/.m2/settings-security.xml'
+            args '-v /Users/jun/.m2:/root/.m2'
         }
     }
     options {
