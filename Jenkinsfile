@@ -3,7 +3,7 @@ pipeline {
     agent {
         docker {
             image 'maven:3-alpine'
-            args '-v /Users/jun/.m2:/root/.m2'
+            args '-v $HOST_HOME_DIR/.m2:/root/.m2'
         }
     }
     options {
@@ -15,6 +15,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                echo 'JJ ' + env.HOST_HOME_DIR
                 sh 'mvn -B -DskipTests clean package'
             }
         }
