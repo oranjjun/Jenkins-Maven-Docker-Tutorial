@@ -10,7 +10,7 @@ services:
     volumes:
       - jenkins-data:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
-      - $HOME:/home
+      - $HOME:/root
     image: jenkinsci/blueocean
     environment:
       - JAVA_OPTS=-Duser.timezone=Asia/Shanghai
